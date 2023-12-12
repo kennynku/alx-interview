@@ -1,22 +1,41 @@
 #!/usr/bin/python3
-'''
-Calculating the minimum amount of processes necessary
-to create a certain number of characters.
-There is only one function
-to copy everything and one to paste.
+
+
+''' A module that returns the minimum Operations it takes to
+    get to n characters.
+
+    Available operations:
+        copy
+        paste
 '''
 
 
 def minOperations(n):
-    k = 0
+    '''
+    returns the minimum operations to get n H's
+    '''
+    min_operations = 0
 
     if n <= 1:
-        return k
+        return min_operations
 
     for i in range(2, n + 1):
-        while (0 == n % i):
-            k = k + i
-            n = n / i
-            if n < i:
-                break
-    return k
+        while n % i == 0:
+            min_operations += i
+            n /= i
+
+    return min_operations
+
+
+if __name__ == '__main__':
+    from random import randint
+    from time import time
+
+    start_time = time()
+
+    for i in range(10):
+        n = randint(2, 100)
+        print("Min # of operations to reach {} char: {}".
+              format(n, minOperations(n)))
+
+    print(f'==> Program completed in {time() - start_time:.3f}s')
